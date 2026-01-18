@@ -69,7 +69,31 @@ func main() {
 	if lastIndex != "res" {
 		fmt.Println("Operation ended with error.")
 	} else {
-		// NEEDS STACK RESOLUTION
-		fmt.Print(stack)
+		var total int = 0
+		var operator string
+		for _, value := range stack {
+			if number, definition := value.(int); definition {
+				if total != 0 {
+					switch operator {
+					case "sum":
+						total += number
+					case "sub":
+						total -= number
+					case "mul":
+						total *= number
+					case "div":
+						total /= number
+					default:
+						fmt.Println("Unexpected error happened")
+					}
+				} else {
+					total = number
+				}
+			} else {
+				var str = value.(string)
+				operator = str
+			}
+		}
+		fmt.Println(total)
 	}
 }
